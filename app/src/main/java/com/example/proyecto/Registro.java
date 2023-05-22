@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Registro {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
     @SerializedName("nivel")
     @Expose
     private int nivel;
@@ -15,10 +18,19 @@ public class Registro {
     @Expose
     private String medicamentos;
 
-    public Registro(int nivel, int insulina, String medicamentos){
+    public Registro(int id,int nivel, int insulina, String medicamentos){
+        this.id=id;
         this.nivel=nivel;
         this.insulina=insulina;
         this.medicamentos=medicamentos;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNivel() {

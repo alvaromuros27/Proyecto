@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?attr/listPreferredItemHeight"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:background="?attr/selectableItemBackground"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Owner"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="ID" />
+
+    <TextView
+        android:id="@+id/nivel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id"
+        android:gravity="center"
+        android:text="NIVEL"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="NIVEL" />
+    <TextView
+        android:id="@+id/insulina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nivel"
+        android:gravity="center"
+        android:text="INSULINA"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="INSULINA" />
+
+    <TextView
+        android:id="@+id/medicamentos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/insulina"
+        android:gravity="center"
+        android:text="MEDICAMENTOS"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="MEDICAMENTOS" />
+
+</RelativeLayout>

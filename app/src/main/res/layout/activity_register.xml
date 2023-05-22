@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="80dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/sgfsd"
@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
-                    android:id="@+id/nombre"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -42,7 +42,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="40dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/sdssdsd"
@@ -55,7 +55,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/sgfsd">
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sdssdsdsd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sgfsd">
+
+                <EditText
+                    android:id="@+id/pass"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -65,23 +88,33 @@
             </com.google.android.material.textfield.TextInputLayout>
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
-            <Button
-                android:id="@+id/btnregister"
+                android:layout_height="40dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sdssdsdsdsd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="REGISTRO"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sdssdsd" />
+                app:layout_constraintTop_toBottomOf="@+id/sgfsd">
+
+                <EditText
+                    android:id="@+id/pass1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/btnentrar"
+                android:id="@+id/btnregistrado"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="ENTRAR"
+                android:text="REGISTRADO"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnentrar" />
