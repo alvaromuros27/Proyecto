@@ -20,6 +20,7 @@ public class RetrofitClient {
             instance = new RetrofitClient();
         }
         return instance;
+
     }
 
     public Api getMyApi() {

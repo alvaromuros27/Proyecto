@@ -24,7 +24,7 @@ public class Login {
     }
 
     public String getToken() {
-        return token;
+        return  "Bearer "+this.token;
     }
 
     public void setToken(String token) {
@@ -49,7 +49,7 @@ public class Login {
 
     @Override
     public String toString() {
-        return "Login{" +
+        return "{" +
                 "token='" + token + '\'' +
                 ", refreshToken='" + refreshToken + '\'' +
                 ", user=" + user +

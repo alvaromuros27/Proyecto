@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -49,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("PULSADO EL BOTON");
-                if(user.getText().toString().equals("")||pass.getText().toString().equals("")){
+                //if(user.getText().toString().equals("")||pass.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Campos vacios, debe de rellenarlos", Toast.LENGTH_LONG).show();
-                }else{
+                //}else{
                     JsonObject paramObject = new JsonObject();
                     try {
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     postLogins(paramObject);
 
-                }
+                //}
 
             }
         });
@@ -85,11 +86,13 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ListFragmentActivity.class);
                     //intent.putExtra("variable",  response.body().toString());
                     startActivity(intent);
+                    Login parametros = new Gson().fromJson(response.body().toString(), Login.class);
 
                     sharedPref= getDefaultSharedPreferences(
                             getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("body", response.body().toString());
+                    //editor.putString("body", response.body().toString());
+                    editor.putString("token", parametros.getToken());
                     editor.apply();
 
 

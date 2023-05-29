@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import retrofit2.Call;
@@ -46,10 +47,10 @@ public class RegisterActivity extends AppCompatActivity {
                     JsonObject paramObject = new JsonObject();
                     try {
 
-                        paramObject.addProperty("username", "julia");
-                        paramObject.addProperty("email", "julita18");
-                        paramObject.addProperty("password1", "julia18");
-                        paramObject.addProperty("password2", "julia18");
+                        paramObject.addProperty("username", "string18");
+                        paramObject.addProperty("email", "julita@gmail.com");
+                        paramObject.addProperty("password1", "julia180219");
+                        paramObject.addProperty("password2", "julia180219");
 
                     } catch (Exception e) {
                         System.out.println("se queda aqui");
@@ -70,18 +71,24 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if (response.isSuccessful()) {
-                    System.out.println("AQUI2");
                     System.out.println(response.body());
                 }else{
                     System.out.println("AQUI3");
-                    System.out.println(response.code());
+                    try {
+                        // Maneja el cuerpo del error aquí
+                        String errorBody = response.errorBody().string();
+                        System.out.println(errorBody);
+                        Toast.makeText(getApplicationContext(), errorBody, Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
 
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
-                System.out.println(t);
+                System.out.println(t.getStackTrace());
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
 
