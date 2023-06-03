@@ -56,4 +56,14 @@ public class Registro {
     public void setMedicamentos(String medicamentos) {
         this.medicamentos = medicamentos;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", nivel=" + nivel +
+                ", insulina=" + insulina +
+                ", medicamentos='" + medicamentos + '\'' +
+                '}';
+    }
 }

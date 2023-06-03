@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Owner"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         tools:text="ID" />
 
@@ -28,7 +28,7 @@
         android:layout_below="@+id/id"
         android:gravity="center"
         android:text="NIVEL"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         tools:text="NIVEL" />
     <TextView
@@ -38,7 +38,7 @@
         android:layout_below="@+id/nivel"
         android:gravity="center"
         android:text="INSULINA"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         tools:text="INSULINA" />
 
@@ -49,7 +49,7 @@
         android:layout_below="@+id/insulina"
         android:gravity="center"
         android:text="MEDICAMENTOS"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         tools:text="MEDICAMENTOS" />
 
