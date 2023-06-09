@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/MnuOpc3" android:title="Usuario"
+        android:icon="@android:drawable/ic_menu_agenda">
+        <menu>
+            <group android:id="@+id/grupo1">
+
+                <item android:id="@+id/btnPerfil"
+                    android:title=""
+                    android:icon="@drawable/ic_baseline_person_24"
+                    app:showAsAction="always"/>
+                <item android:id="@+id/btnChange"
+                    android:title=""
+                    android:icon="@drawable/ic_baseline_password_24"
+                    app:showAsAction="always"/>/>
+
+            </group>
+        </menu>
+    </item>
+
+    <group android:id="@+id/group_2" android:checkableBehavior="single">
+        <item
+            android:id="@+id/btnSalir"
+            android:icon="@drawable/ic_baseline_logout_24"
+            android:title=""
+            android:state_checked="false"
+            app:showAsAction="always" />
+    </group>
+
+</menu>

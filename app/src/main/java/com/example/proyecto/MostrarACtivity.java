@@ -2,7 +2,10 @@ package com.example.proyecto;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
@@ -37,20 +40,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MostrarACtivity extends AppCompatActivity {
-    SharedPreferences sharedPref;
+    private SharedPreferences sharedPref;
     Registro registro, registro1;
-    ListMedicamentos listMedicamentos;
-    EditText nivel, insulina, medicamentos;
-    TextInputLayout textInputLayoutNivel;
-    String inputNivel,inputInsulina;
-    Button aplicar;
-    Spinner spinnerEdit;
-    List<String> itemList;
-    List<String> selectedItemsList;
+    private ListMedicamentos listMedicamentos;
+    private EditText nivel, insulina, medicamentos;
+    private TextInputLayout textInputLayoutNivel;
+    private Button aplicar;
+    private Spinner spinnerEdit;
+    private List<String> itemList;
+    private List<String> selectedItemsList;
+    private Toolbar toolbarEdit;
+    AlertDialog.Builder dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar);
+
+        toolbarEdit = (Toolbar)findViewById(R.id.toolbarMostrar);
+        setSupportActionBar(toolbarEdit);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null)
+        {
+            actionBar.setTitle("Mostrar" );
+        }
 
         sharedPref = getDefaultSharedPreferences(getApplicationContext());
 
@@ -87,9 +99,9 @@ public class MostrarACtivity extends AppCompatActivity {
         aplicar.setVisibility(View.INVISIBLE);
 
         //Comprobado lo anterior se inicializan las siguientes variables.
-        inputNivel = String.valueOf(nivel.getText());
+        String inputNivel = String.valueOf(nivel.getText());
         inputNivel = inputNivel.trim(); // Elimino los espacios que se quedan
-        inputInsulina = String.valueOf(insulina.getText());
+        String inputInsulina = String.valueOf(insulina.getText());
         inputInsulina = inputInsulina.trim();
 
         int comprobacionNivel = Integer.parseInt(inputNivel);
@@ -106,8 +118,7 @@ public class MostrarACtivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -147,44 +158,72 @@ public class MostrarACtivity extends AppCompatActivity {
     }
 
     public void onClickInitEdit(View view) {
-        //Aqui nos encargamos de verificar que no se quedan los campos vacios.
-        if(nivel.getText().equals("")||insulina.getText().equals("")||medicamentos.getText().equals("")){
-            Toast.makeText(getApplicationContext(), "No puedes dejar los campoes vacios", Toast.LENGTH_LONG).show();
-        }else{
-            //Aqui creo el JsonObject
-            JsonObject paramObject = new JsonObject();
+        //Comprobado lo anterior se inicializan las siguientes variables.
+        String inputNivel = String.valueOf(nivel.getText());
+        inputNivel = inputNivel.trim(); // Elimino los espacios que se quedan
+        String inputInsulina = String.valueOf(insulina.getText());
+        inputInsulina = inputInsulina.trim();
 
-            try {
+        //Aqui creo el JsonObject
+        JsonObject paramObject = new JsonObject();
+        try {
+            if(!inputNivel.isEmpty()){
                 int number = Integer.parseInt(inputNivel);
                 int insulinaAdministrada;
                 int nivelFinal = 0;
                 int insulinaFinal=0;
-                if (number>600){
-                    System.out.println("Acuda al hospital inmediatamente");
-                }else if(number<30){
-                    System.out.println("ACuda al hospital inmediatamente");
+                if (number>=600){
+                    initDialog("Acuda inmediatamente al hospital", nivel);
+                }else if(number<=30){
+                    initDialog("Acuda inmediatamente al hospital", nivel);
                 }else{
                     nivelFinal = number;
-                    insulinaAdministrada = Integer.parseInt(inputInsulina);
-                    if(insulinaAdministrada>24){
-                        System.out.println("No se puede administrar mas insulina de 24");
-                    }else {
-                        System.out.println(insulinaAdministrada);
-                        insulinaFinal=insulinaAdministrada;
-                        paramObject.addProperty("nivel", nivelFinal);
-                        paramObject.addProperty("insulina", insulinaFinal);
-                        paramObject.addProperty("medicamentos", medicamentos.getText().toString());
+                    if(!inputInsulina.isEmpty()){
+                        insulinaAdministrada = Integer.parseInt(inputInsulina);
+                        if(insulinaAdministrada>30){
+                            initDialog("Debe de controlar su dosis de insulina", insulina);
+                        }else {
+                            System.out.println(insulinaAdministrada);
+                            insulinaFinal=insulinaAdministrada;
+                            String medi = medicamentos.getText().toString();
+                            medi = medi.trim();
+                            if(!medi.isEmpty()){
+                                paramObject.addProperty("nivel", nivelFinal);
+                                paramObject.addProperty("insulina", insulinaFinal);
+                                paramObject.addProperty("medicamentos", medicamentos.getText().toString());
+                                patchRegitros(paramObject, registro1.getId());
+                            }else{
+                                initDialog("No se puede dejar el campo vacio", medicamentos);
+                            }
+                        }
+                    }else{
+                        initDialog("No se puede dejar el campo vacio", insulina);
                     }
                 }
-
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input format: " + inputNivel);
-                e.printStackTrace();
-            }catch (Exception e){
-                e.printStackTrace();
+            }else{
+                initDialog("No se puede dejar el campo vacio", nivel);
             }
-            patchRegitros(paramObject, registro1.getId());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input format: " + inputNivel);
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
+
+    }
+
+    public void initDialog(String frase, EditText focus){
+        dialog = new AlertDialog.Builder(MostrarACtivity.this);
+        dialog.setTitle(frase);
+        dialog.setPositiveButton("Continuar", (dialogo, id) ->{
+            dialogo.cancel();
+            focus.requestFocus();
+        });
+        dialog.setNegativeButton("Salir de la APP", (dialogo, id) ->{
+            finishAffinity();
+        });
+        dialog.show();
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.proyecto;
 
+import android.content.SharedPreferences;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -18,7 +20,8 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-    String BASE_URL = "http://192.168.8.128:8000/";
+
+    String BASE_URL = "http://192.168.56.118:8000/";
 
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("dj-rest-auth/login/")
@@ -27,6 +30,9 @@ public interface Api {
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("dj-rest-auth/registration/")
     Call<JsonElement> postRegister(@Body JsonObject body);
+
+    @POST("dj-rest-auth/logout/")
+    Call<JsonElement> postLogout();
 
     @GET("registros/")
     Call<JsonElement> getRegistro(@Header("Authorization") String token);
@@ -42,5 +48,16 @@ public interface Api {
     @PATCH("registros/{id}/")
     Call<JsonElement> patchRegistros(@Header("Authorization") String token, @Body JsonObject body,@Path("id")int id);
 
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("registros/")
+    Call<JsonElement> postRegistros(@Header("Authorization") String token, @Body JsonObject body);
+
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @PATCH("dj-rest-auth/user/")
+    Call<JsonElement> patchUser(@Header("Authorization") String token, @Body JsonObject body);
+
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("dj-rest-auth/password/change/")
+    Call<JsonElement> postChangePassword(@Header("Authorization") String token, @Body JsonObject body);
 
 }

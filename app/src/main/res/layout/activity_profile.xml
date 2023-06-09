@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MostrarACtivity">
+    tools:context=".ProfileActivity">
 
     <LinearLayout
         android:id="@+id/home_content"
@@ -12,10 +12,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbarMostrar"
+            android:id="@+id/toolbarPerfil"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@android:color/holo_blue_dark"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
         <ScrollView
@@ -43,13 +43,36 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
-                        android:id="@+id/editNivel"
+                        android:id="@+id/usernamePerfil"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="Nivel de Azucar en Sangre"
-                        android:inputType="number" />
+                        android:hint="Nombre de Usuario"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/emailPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Email"
+                        android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,25 +90,20 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
                     <EditText
-                        android:id="@+id/editInsulina"
+                        android:id="@+id/nombrePerfil"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
                         android:gravity="start|top"
-                        android:hint="Insulina Administrada"
-                        android:inputType="number" />
+                        android:hint="Nombre"
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
-
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout"
@@ -97,14 +115,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
                     <EditText
-                        android:id="@+id/editMedicamentos"
+                        android:id="@+id/apellidoPerfil"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
                         android:gravity="start|top"
-                        android:hint="Medicamentos"
-                        android:inputType="textMultiLine" />
+                        android:hint="Apellido"
+                        android:inputType="text" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -113,10 +131,10 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/botonAplicar"
+                    android:id="@+id/botonActualizar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Aplicar" />
+                    android:text="ACTUALIZAR" />
 
 
             </LinearLayout>

@@ -22,6 +22,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     EditText user, pass;
+
     Button enter, register;
 
     SharedPreferences sharedPref;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPref= getDefaultSharedPreferences(
+                getApplicationContext());
+
         user = findViewById(R.id.nombre);
 
         pass = findViewById(R.id.password);
@@ -39,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("PULSADO EL BOTON");
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
             }
@@ -49,23 +52,19 @@ public class MainActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("PULSADO EL BOTON");
-                //if(user.getText().toString().equals("")||pass.getText().toString().equals("")){
+                if(user.getText().toString().equals("")||pass.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Campos vacios, debe de rellenarlos", Toast.LENGTH_LONG).show();
-                //}else{
+                }else{
                     JsonObject paramObject = new JsonObject();
                     try {
-
-                        paramObject.addProperty("username", "alvaro");
-                        paramObject.addProperty("password", "alvaro");
+                        paramObject.addProperty("username", user.getText().toString());
+                        paramObject.addProperty("password", pass.getText().toString());
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     postLogins(paramObject);
-
-                //}
-
+                }
             }
         });
 
@@ -83,15 +82,13 @@ public class MainActivity extends AppCompatActivity {
                     user.getText().clear();
                     System.out.println( response.body().toString());
 
-                    Intent intent = new Intent(getApplicationContext(), ListFragmentActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ListFragmentActivity.class);
                     //intent.putExtra("variable",  response.body().toString());
                     startActivity(intent);
                     Login parametros = new Gson().fromJson(response.body().toString(), Login.class);
 
-                    sharedPref= getDefaultSharedPreferences(
-                            getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    //editor.putString("body", response.body().toString());
+                    editor.putString("body", response.body().toString());
                     editor.putString("token", parametros.getToken());
                     editor.apply();
 

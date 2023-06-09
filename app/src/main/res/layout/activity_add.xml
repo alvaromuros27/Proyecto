@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MostrarACtivity">
+    tools:context=".AddActivity">
 
     <LinearLayout
         android:id="@+id/home_content"
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbarMostrar"
+            android:id="@+id/toolbarAñadir"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -43,7 +43,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
-                        android:id="@+id/editNivel"
+                        android:id="@+id/addNivel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -67,7 +67,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
                     <EditText
-                        android:id="@+id/editInsulina"
+                        android:id="@+id/addInsulina"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -97,7 +97,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
                     <EditText
-                        android:id="@+id/editMedicamentos"
+                        android:id="@+id/addMedicamentos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -116,7 +116,7 @@
                     android:id="@+id/botonAplicar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Aplicar" />
+                    android:text="AÑADIR" />
 
 
             </LinearLayout>

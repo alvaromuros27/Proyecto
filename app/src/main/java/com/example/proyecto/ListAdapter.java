@@ -41,7 +41,7 @@ public class ListAdapter extends ArrayAdapter<Registro> {
         }
         Registro registro = getItem(position);
         System.out.println(registro.getId());
-        holder.id.setText("ID: " + registro.getId());
+        holder.id.setText("Creacion: " + registro.getCreacion());
         holder.nivel.setText("Nivel: " + registro.getNivel());
         holder.insulina.setText("Insulina: " + registro.getInsulina());
         holder.medicamentos.setText("Medicamentos: " + registro.getMedicamentos());

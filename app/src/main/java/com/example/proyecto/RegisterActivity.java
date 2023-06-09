@@ -1,13 +1,19 @@
 package com.example.proyecto;
 
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -23,10 +29,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     Button registrado;
 
+    Registration registration;
+    AlertDialog.Builder dialog;
+
+    SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        sharedPref= getDefaultSharedPreferences(
+                getApplicationContext());
 
         name = findViewById(R.id.name);
 
@@ -41,24 +55,22 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("PULSADO EL BOTON");
-                //if(name.getText().toString().equals("")||email.getText().toString().equals("")||pass.getText().toString().equals("")||pass1.getText().toString().equals("")){
-                  //  Toast.makeText(getApplicationContext(), "Campos vacios, debe de rellenarlos", Toast.LENGTH_LONG).show();
-                //}else{
+                if(name.getText().toString().equals("")||email.getText().toString().equals("")||pass.getText().toString().equals("")||pass1.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Campos vacios, debe de rellenarlos", Toast.LENGTH_LONG).show();
+                }else{
                     JsonObject paramObject = new JsonObject();
                     try {
 
-                        paramObject.addProperty("username", "string18");
-                        paramObject.addProperty("email", "julita@gmail.com");
+                        paramObject.addProperty("username", "holaaa2528");
+                        paramObject.addProperty("email", "28julitaHola25@gmail.com");
                         paramObject.addProperty("password1", "julia180219");
                         paramObject.addProperty("password2", "julia180219");
+                        postRegister(paramObject);
 
                     } catch (Exception e) {
-                        System.out.println("se queda aqui");
                         e.printStackTrace();
                     }
-                    postRegister(paramObject);
-
-                //}
+                }
             }
         });
     }
@@ -66,24 +78,58 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void postRegister(JsonObject body){
         Call<JsonElement> call = RetrofitClient.getInstance().getMyApi().postRegister(body);
-        System.out.println("AQUI1");
         call.enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if (response.isSuccessful()) {
-                    System.out.println(response.body());
+                    System.out.println(response.body().toString());
+                    Intent intent = new Intent(RegisterActivity.this, ListFragmentActivity.class);
+                    startActivity(intent);
+                    Login parametros = new Gson().fromJson(response.body().toString(), Login.class);
+
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("body", response.body().toString());
+                    editor.putString("token", parametros.getToken());
+                    editor.apply();
                 }else{
-                    System.out.println("AQUI3");
                     try {
                         // Maneja el cuerpo del error aquí
                         String errorBody = response.errorBody().string();
-                        System.out.println(errorBody);
-                        Toast.makeText(getApplicationContext(), errorBody, Toast.LENGTH_LONG).show();
+                        registration = new Gson().fromJson(errorBody, Registration.class);
+
+                        dialog = new AlertDialog.Builder(RegisterActivity.this);
+                        dialog.setTitle("Error");
+                        if(registration.getUsername()!=null){
+                            dialog.setMessage(" "+registration.getUsername());
+                        }else if(registration.getEmail()!=null){
+                            dialog.setMessage(" "+registration.getEmail());
+                        }else if(registration.getPassword()!=null){
+                            dialog.setMessage(" "+registration.getPassword());
+                        }else if(registration.getNon_field_errors()!=null){
+                            dialog.setMessage(" "+registration.getNon_field_errors());
+                        }
+
+                        dialog.setPositiveButton("Continuar", (dialogo, id) ->{
+                            dialogo.cancel();
+                            if(registration.getUsername()!=null){
+                                name.requestFocus();
+                            }else if(registration.getEmail()!=null){
+                                email.requestFocus();
+                            }else if(registration.getPassword()!=null){
+                                pass.requestFocus();
+                            }else if(registration.getNon_field_errors()!=null){
+                                pass1.requestFocus();
+                            }
+                        });
+                        dialog.setNegativeButton("Salir de la APP", (dialogo, id) ->{
+                            finishAffinity();
+                        });
+                        dialog.show();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-
             }
 
             @Override
