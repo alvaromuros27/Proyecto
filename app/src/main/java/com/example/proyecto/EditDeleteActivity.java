@@ -13,9 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MostrarACtivity extends AppCompatActivity {
+public class EditDeleteActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
     Registro registro, registro1;
     private ListMedicamentos listMedicamentos;
@@ -54,7 +52,7 @@ public class MostrarACtivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mostrar);
+        setContentView(R.layout.activity_edit_delete);
 
         toolbarEdit = (Toolbar)findViewById(R.id.toolbarMostrar);
         setSupportActionBar(toolbarEdit);
@@ -214,7 +212,7 @@ public class MostrarACtivity extends AppCompatActivity {
     }
 
     public void initDialog(String frase, EditText focus){
-        dialog = new AlertDialog.Builder(MostrarACtivity.this);
+        dialog = new AlertDialog.Builder(EditDeleteActivity.this);
         dialog.setTitle(frase);
         dialog.setPositiveButton("Continuar", (dialogo, id) ->{
             dialogo.cancel();

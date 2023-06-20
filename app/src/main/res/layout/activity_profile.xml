@@ -42,7 +42,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/usernamePerfil"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailPerfil"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -136,7 +136,14 @@
                     android:layout_height="wrap_content"
                     android:text="ACTUALIZAR" />
 
-
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <Button
+                    android:id="@+id/botonCambiar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CAMBIAR CONTRASEÑA" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

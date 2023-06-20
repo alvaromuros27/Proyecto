@@ -21,7 +21,7 @@ import retrofit2.http.Query;
 public interface Api {
 
 
-    String BASE_URL = "http://192.168.56.118:8000/";
+    String BASE_URL = "http://192.168.55.5:8000/";
 
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("dj-rest-auth/login/")

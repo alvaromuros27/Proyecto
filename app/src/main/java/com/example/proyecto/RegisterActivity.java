@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
         sharedPref= getDefaultSharedPreferences(
                 getApplicationContext());
 
@@ -61,10 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
                     JsonObject paramObject = new JsonObject();
                     try {
 
-                        paramObject.addProperty("username", "holaaa2528");
-                        paramObject.addProperty("email", "28julitaHola25@gmail.com");
-                        paramObject.addProperty("password1", "julia180219");
-                        paramObject.addProperty("password2", "julia180219");
+                        paramObject.addProperty("username", name.getText().toString());
+                        paramObject.addProperty("email", email.getText().toString());
+                        paramObject.addProperty("password1", pass.getText().toString());
+                        paramObject.addProperty("password2", pass1.getText().toString());
                         postRegister(paramObject);
 
                     } catch (Exception e) {
@@ -91,6 +92,11 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.putString("body", response.body().toString());
                     editor.putString("token", parametros.getToken());
                     editor.apply();
+
+                    name.getText().clear();
+                    email.getText().clear();
+                    pass.getText().clear();
+                    pass1.getText().clear();
                 }else{
                     try {
                         // Maneja el cuerpo del error aquí
@@ -134,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
-                System.out.println(t.getStackTrace());
+                System.out.println(t.getMessage());
                 Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
             }
 

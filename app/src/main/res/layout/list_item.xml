@@ -12,20 +12,20 @@
     android:paddingTop="8dp">
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/creacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Owner"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="ID" />
+        tools:text="CREACION" />
 
     <TextView
         android:id="@+id/nivel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/id"
+        android:layout_below="@+id/creacion"
         android:gravity="center"
         android:text="NIVEL"
         android:textSize="14sp"

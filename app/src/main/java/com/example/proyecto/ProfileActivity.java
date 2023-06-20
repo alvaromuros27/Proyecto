@@ -2,12 +2,17 @@ package com.example.proyecto;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -31,8 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
     Login parametros;
     private String body;
     private EditText username,email,  firstname, lastname;
-    private Button actualizar;
-    AlertDialog.Builder dialog;
+    private Button actualizar, cambiarPass;
+    ActivityResultLauncher<Intent> activityAddResultLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         username = findViewById(R.id.usernamePerfil);
         username.setText(parametros.getUser().get("username").getAsString());
+        username.setEnabled(false);
 
         email = findViewById(R.id.emailPerfil);
         email.setText(parametros.getUser().get("email").getAsString());
@@ -67,8 +73,30 @@ public class ProfileActivity extends AppCompatActivity {
 
         actualizar = findViewById(R.id.botonActualizar);
         actualizar.setOnClickListener(this::setActualizar);
+
+        cambiarPass = findViewById(R.id.botonCambiar);
+        cambiarPass.setOnClickListener(this::initChange);
+
+        activityAddResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        System.out.println(result);
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+
+                        }else{
+
+                        }
+                    }
+                });
     }
 
+
+    public void initChange(View v) {
+        Intent intent = new Intent(ProfileActivity.this, Change_Password_Activity.class);
+         activityAddResultLauncher.launch(intent);
+    }
 
     public void setActualizar(View v) {
         if(username.getText().toString().equals("") || firstname.getText().toString().equals("") || lastname.getText().toString().equals("")){

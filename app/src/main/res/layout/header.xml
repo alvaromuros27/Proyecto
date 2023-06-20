@@ -15,9 +15,10 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:drawablePadding="12dp"
         android:gravity="center_vertical"
-        android:text="Diabetes"
+        android:text="@string/app_name"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableStartCompat="@mipmap/ic_launcher_foreground"/>
 
     <TextView
         android:layout_width="0dp"

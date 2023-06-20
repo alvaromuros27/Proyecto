@@ -8,9 +8,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto.NoActionBar"
         android:usesCleartextTraffic="true"
@@ -37,7 +37,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MostrarACtivity"
+            android:name=".EditDeleteActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -58,7 +58,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.Proyecto.NoActionBar">
             <intent-filter>

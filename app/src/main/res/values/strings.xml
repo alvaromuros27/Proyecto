@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Proyecto</string>
+    <string name="app_name">Diabetes Control</string>
     <string name="navigation_drawer_open">Abrir Menu Lateral</string>
     <string name="navigation_drawer_close">Cerrar Menu Lateral</string>
     <string name="title_click">Title click</string>

@@ -11,7 +11,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -21,7 +20,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -32,7 +30,6 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
@@ -61,7 +58,7 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_list_fragment);
 
         sharedPref = getDefaultSharedPreferences(
                 getApplicationContext());
@@ -73,7 +70,7 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null)
         {
-            actionBar.setTitle("List Fragment" );
+            actionBar.setTitle("Controles Diabetes");
         }
 
 
@@ -95,8 +92,6 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
 
         MenuItem menuItem = navigationView.getMenu().getItem(0);
         onNavigationItemSelected(menuItem);
-        navigationView.getMenu().getItem(0).setChecked(false);
-        navigationView.getMenu().getItem(0).setCheckable(false);
 
         View header = navigationView.getHeaderView(0);
         TextView headerTitle = header.findViewById(R.id.header_title);
@@ -187,9 +182,6 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
                 System.out.println("Pulsado");
                 pulsarProfile();
                 break;
-            case R.id.btnChange:
-                pulsarChangePassword();
-                break;
             case R.id.btnSalir:
                 System.out.println("Pulsado");
                 postLogout();
@@ -247,6 +239,8 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
                     try {
                         // Maneja el cuerpo del error aquí
                         String errorBody = response.errorBody().string();
+                        System.out.println(errorBody
+                        );
                         Toast.makeText(getApplicationContext(), errorBody, Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -267,6 +261,8 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 System.out.println(response.body());
+                Intent intent = new Intent(ListFragmentActivity.this, LoginActivity.class);
+                startActivity(intent);
                 finish();
             }
             @Override
@@ -297,7 +293,7 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
     }
 
     public void pulsarEdit(Registro registro){
-        Intent intent = new Intent(getApplicationContext(), MostrarACtivity.class);
+        Intent intent = new Intent(getApplicationContext(), EditDeleteActivity.class);
         intent.putExtra("registro", registro.toString());
         activityAddResultLauncher.launch(intent);
     }
@@ -310,10 +306,7 @@ public class ListFragmentActivity extends AppCompatActivity implements Navigatio
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         activityAddResultLauncher.launch(intent);
     }
-    public void pulsarChangePassword(){
-        Intent intent = new Intent(getApplicationContext(), Change_Password_Activity.class);
-        activityAddResultLauncher.launch(intent);
-    }
+
 
 
 

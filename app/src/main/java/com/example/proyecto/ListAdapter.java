@@ -30,7 +30,7 @@ public class ListAdapter extends ArrayAdapter<Registro> {
 
             holder = new ViewHolder();
 
-            holder.id = (TextView) convertView.findViewById(R.id.id);
+            holder.creacion = (TextView) convertView.findViewById(R.id.creacion);
             holder.nivel = (TextView) convertView.findViewById(R.id.nivel);
             holder.insulina = (TextView) convertView.findViewById(R.id.insulina);
             holder.medicamentos = (TextView) convertView.findViewById(R.id.medicamentos);
@@ -41,9 +41,9 @@ public class ListAdapter extends ArrayAdapter<Registro> {
         }
         Registro registro = getItem(position);
         System.out.println(registro.getId());
-        holder.id.setText("Creacion: " + registro.getCreacion());
-        holder.nivel.setText("Nivel: " + registro.getNivel());
-        holder.insulina.setText("Insulina: " + registro.getInsulina());
+        holder.creacion.setText(registro.getCreacion());
+        holder.nivel.setText("Nivel: " + registro.getNivel()+" mg/dL");
+        holder.insulina.setText("Insulina: " + registro.getInsulina()+" unidades");
         holder.medicamentos.setText("Medicamentos: " + registro.getMedicamentos());
 
 
@@ -53,7 +53,7 @@ public class ListAdapter extends ArrayAdapter<Registro> {
     static class ViewHolder {
 
 
-        TextView id;
+        TextView creacion;
         TextView nivel;
         TextView insulina;
         TextView medicamentos;

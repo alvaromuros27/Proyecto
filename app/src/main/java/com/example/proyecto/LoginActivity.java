@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText user, pass;
 
     Button enter, register;
@@ -30,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
+        //Para poder crear una variable global a nivel del proyecto
         sharedPref= getDefaultSharedPreferences(
                 getApplicationContext());
 
@@ -52,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Se comprueba que no haya ningún campo vacio
                 if(user.getText().toString().equals("")||pass.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Campos vacios, debe de rellenarlos", Toast.LENGTH_LONG).show();
                 }else{
+                    //Se crea el JsonObject
                     JsonObject paramObject = new JsonObject();
                     try {
+                        //Se le pasan los dos parametros necesarios para hacer el body para la petición
                         paramObject.addProperty("username", user.getText().toString());
                         paramObject.addProperty("password", pass.getText().toString());
 
@@ -78,21 +82,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if (response.isSuccessful()) {
+                    System.out.println(response.body().toString());
                     //Borrar los datos del editText en user
                     user.getText().clear();
-                    System.out.println( response.body().toString());
 
-                    Intent intent = new Intent(MainActivity.this, ListFragmentActivity.class);
-                    //intent.putExtra("variable",  response.body().toString());
+                    //Se crea un intent para llevarnos a la siguiente activity
+                    Intent intent = new Intent(LoginActivity.this, ListFragmentActivity.class);
                     startActivity(intent);
+                    //Se crean los parametros de la clase Login
                     Login parametros = new Gson().fromJson(response.body().toString(), Login.class);
 
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("body", response.body().toString());
                     editor.putString("token", parametros.getToken());
                     editor.apply();
-
-
                 }else{
                     Toast.makeText(getApplicationContext(), "Credenciales incorrectas", Toast.LENGTH_LONG).show();
                 }
